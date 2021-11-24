@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  php:
+    image: wodby/php:$PHP_TAG
+    container_name: "${PROJECT_NAME}_php"
+    environment:
+      PHP_FPM_USER: wodby
+      PHP_FPM_GROUP: wodby
+      PHP_XDEBUG: 1
+      PHP_XDEBUG_DEFAULT_ENABLE: 1
+      PHP_XDEBUG_REMOTE_CONNECT_BACK: 0
+      PHP_IDE_CONFIG: serverName=my-ide
+      PHP_XDEBUG_IDEKEY: "my-ide"
+      PHP_XDEBUG_REMOTE_HOST: host.docker.internal
+      PHP_XDEBUG_REMOTE_LOG: /tmp/php-xdebug.log
+      PHP_XDEBUG_REMOTE_AUTOSTART: 1
+    volumes:
+      - docker-sync-weather:/var/www/html
+
+volumes:
+  docker-sync-weather:
+    external: true

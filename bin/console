@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+
+if (!is_file(dirname(__DIR__).'/vendor/autoload.php')) {
+    throw new LogicException('Composer autoload is missing.');
+}
+
+require_once dirname(__DIR__).'/vendor/autoload.php';
+
+if (!is_file(dirname(__DIR__).'/.env.local')) {
+    throw new LogicException('Local env file is missing.');
+}
+
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__), '.env.local');
+$dotenv->load();
+
+
+$openWeatherMapService = new \App\Service\OpenWeatherMapService($_ENV['API_KEY']);
+
+
+if (!isset($argv[1])) {
+    echo "Argument 'city' is missing \n";
+    exit();
+}
+
+$city = trim($argv[1]);
+
+$weatherResponseDTO = $openWeatherMapService->getCurrentWeather($city);
+
+if (!$weatherResponseDTO) {
+    echo "👀 Something went wrong! Please check application logs \n";
+    exit();
+}
+
+echo "🌏 The weather for {$weatherResponseDTO->getName()}: \n";
+echo "🌏 {$weatherResponseDTO->getMain()} degrees celcius, {$weatherResponseDTO->weatherToString()} \n";
+
