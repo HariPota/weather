@@ -1,4 +1,8 @@
 # WEATHER CONSOLE TASK
+### A simple console application for fetching the current weather for a given city
+#### Requirements:
+* PHP >= 8.0
+* Composer
 
 #### Docker guide
 
@@ -29,7 +33,9 @@
 set up your API key in the .env.local file 
 
 #### How to use 
-```docker exec -ti weather_php bin/console london```
+with docker: ```docker exec -ti weather_php bin/console london``` <br>
+without docker: ```php bin/console london```
 
 #### PHPUNIT 
-```docker exec -ti weather_php phpunit tests```
+with docker: ```docker exec -ti weather_php phpunit tests``` <br>
+without docker: ```phpunit tests```
