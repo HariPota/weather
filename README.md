@@ -24,13 +24,12 @@
     
 
 #### Application setup
-```mkdir config/keys```
+```cp .env .env.local```
 
-cp .env .env.local
+set up your API key in the .env.local file 
 
+#### How to use 
+```docker exec -ti weather_php bin/console london```
 
-#### Linters
-    php -d memory_limit=8G vendor/bin/phpcbf --standard=Symfony -p src   --ignore=Migrations/,DataFixtures
-    php -d memory_limit=8G vendor/bin/phpcs --standard=Symfony -p src   --ignore=Migrations/,DataFixtures
-    php -d memory_limit=8G vendor/bin/phpmd src/ text ruleset.xml --exclude Entity,Repository,src/helpers.php,SignLegalDocument.php,Migrations,DataFixtures,src/Service/Datagrid,src/Service/Utils/QueryHelper,src/Service/DataFilter
-    php -d memory_limit=8G vendor/bin/phpstan --memory-limit=8G analyse -l 6 -c phpstan.neon --no-progress src/
+#### PHPUNIT 
+```docker exec -ti weather_php phpunit tests```
